@@ -20,19 +20,13 @@ apm install terminal-plus
 apm install atom-runner
 apm install color-picker
 
-#pyenvのインストール
-brew install pyenv
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-source ~/.zshrc
-
 #Pythonのインストール
-pyenv install
-pyenv install $(pyenv install -l | grep 'anaconda3-' | grep -e '\s3*' | tail -1)
+brew cask install anaconda
 
 #zshの補完
 brew install zsh-completions
 echo 'fpath=(/path/to/homebrew/share/zsh-completions $fpath)' >> ~/.zshrc
 echo 'autoload -U compinit' >> ~/.zshrc
 echo 'compinit -u' >> ~/.zshrc
+
+source ~/.zshrc

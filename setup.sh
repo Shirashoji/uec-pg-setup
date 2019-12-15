@@ -8,10 +8,17 @@ xcode-select --install
 #Homebrewのインストール
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+#iTerm2のインストール
+brew cask install iterm2
+#Slackのインストール
+brew cask install slack
 #Chromeのインストール
-brew install wget
-wget https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
-hdiutil mount googlechrome.dmg
+brew cask install google-chrome
+#Atomのインストール
+brew cask install atom
+apm install terminal-plus
+apm install atom-runner
+apm install color-picker
 
 #pyenvのインストール
 brew install pyenv
@@ -24,11 +31,8 @@ source ~/.zshrc
 pyenv install
 pyenv install $(pyenv install -l | grep 'anaconda3-' | grep -e '\s3*' | tail -1)
 
-#zsh
+#zshの補完
 brew install zsh-completions
 echo 'fpath=(/path/to/homebrew/share/zsh-completions $fpath)' >> ~/.zshrc
 echo 'autoload -U compinit' >> ~/.zshrc
 echo 'compinit -u' >> ~/.zshrc
-
-
-echo "SlackはAppStoreからのみインストールできます."

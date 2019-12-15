@@ -20,7 +20,7 @@ apm install terminal-plus
 apm install atom-runner
 apm install color-picker
 
-#Pythonのインストール
+#Anacondaのインストール
 brew cask install anaconda
 
 #zshの補完

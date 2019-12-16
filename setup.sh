@@ -7,6 +7,7 @@ chsh -s /bin/zsh
 xcode-select --install
 #Homebrewのインストール
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap homebrew/cask
 
 #iTerm2のインストール
 brew cask install iterm2

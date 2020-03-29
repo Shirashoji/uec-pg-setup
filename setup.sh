@@ -1,28 +1,21 @@
 #!/bin/zsh
 
-#zshに変更
-chsh -s /bin/zsh
-
-#X-Code
+#xcode command line tools
 xcode-select --install
-#Homebrewのインストール
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap homebrew/cask
 
-#iTerm2のインストール
-brew cask install iterm2
-#Slackのインストール
-brew cask install slack
-#Chromeのインストール
-brew cask install google-chrome
-#Atomのインストール
-brew cask install atom
-apm install terminal-plus
-apm install atom-runner
-apm install color-picker
+#HomeBrewのインストール
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-#Anacondaのインストール
-brew cask install anaconda
+#HomeBrewのアップデート(強制)
+brew update --force && brew upgrade
+
+#brew cask
+brew install caskroom/cask/brew-cask
+#今は自動インストールされるらしい でも一応ね
+
+#Launchpadに表示されるように
+echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
+source ~/.zshrc
 
 #zshの補完
 brew install zsh-completions

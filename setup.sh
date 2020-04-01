@@ -1,10 +1,5 @@
 #!/bin/sh
 
-echo " ------------ Set Password ------------"
-# パスワードを記憶
-read -sp "このMacにログインした際のパスワードを入力してください: " __pass;
-echo "\n ------------ END ------------"
-
 echo "既に入っている物に関してはnを入力してください"
 echo " ------------ XCode ------------"
 echo "新入生は入ってなければy"
@@ -18,6 +13,7 @@ case ${Answer} in
   n|N)
     echo "インストールをスキップしました" ;;
 esac
+echo " ------------ END ------------"
 
 
 echo " ------------ Homebrew ------------"
@@ -33,8 +29,10 @@ case ${Answer_homebrew} in
   n|N)
     echo "インストールをスキップしました" ;;
 esac
+echo " ------------ END ------------"
 
-echo "新入生は入ってなければy"
+echo " ------------ Anaconda ------------"
+echo "新入生は入ってなければy，pyenvを使用したい場合は自分で入れてください．"
 read -p "Anacondaをインストールしますか？ (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
@@ -42,6 +40,40 @@ case ${Answer} in
   n|N)
       echo "インストールをスキップしました" ;;
   esac
+echo " ------------ END ------------"
+
+echo " ------------ Slack ------------"
+read -p "Slackをインストールしますか？ (y/n)" Answer < /dev/tty
+case ${Answer} in
+  y|Y)
+  brew cask install slack ;;
+  n|N)
+    echo "インストールをスキップしました" ;;
+esac
+echo " ------------ END ------------"
+
+echo " ------------ Chrome ------------"
+read -p "Chromeをインストールしますか？ (y/n)" Answer < /dev/tty
+case ${Answer} in
+  y|Y)
+    brew cask install google-chrome ;;
+  n|N)
+    echo "インストールをスキップしました" ;;
+esac
+echo " ------------ END ------------"
+
+echo " ------------ Atom ------------"
+read -p "Atomをインストールしますか？ (y/n)" Answer < /dev/tty
+case ${Answer} in
+  y|Y)
+    brew cask install atom
+    apm install terminal-plus
+    apm install atom-runner
+    apm install color-picker ;;
+  n|N)
+    echo "インストールをスキップしました" ;;
+esac
+echo " ------------ END ------------"
 
 
 echo " ------------ ITerm2 ------------"
@@ -53,12 +85,13 @@ case ${Answer} in
   n|N)
     echo "インストールをスキップしました" ;;
 esac
+
 echo " ------------ END ------------"
 
 
 echo " ------------ 質問コーナー! ------------"
 
-read -p "zsh?新入生は多分zshなのでyを入力してください (y/n)" q_zsh < /dev/tty
+read -p "zsh使ってる？ (新入生は多分zshなのでyを入力してください) (y/n)" q_zsh < /dev/tty
 case ${q_zsh} in
   y|Y)
     case ${Answer_homebrew} in
@@ -66,7 +99,7 @@ case ${q_zsh} in
         echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
         source ~/.zshrc
     esac
-    read -p "zshで補完を行いますか？新入生はあった方がいいと思います (y/n)" Answer < /dev/tty
+    read -p "zshで補完を行いたい？(新入生はあった方がいいと思います) (y/n)" Answer < /dev/tty
     case ${Answer} in
       y|Y)
         #zshの補完
@@ -76,8 +109,10 @@ case ${q_zsh} in
         echo 'compinit -u' >> ~/.zshrc
         source ~/.zshrc ;;
       n|N)
-        echo "#zshの補完はありません" ;;
+        echo "" ;;
     esac
 esac
+echo "以上質問コーナーでした"
+echo " ------------ END ------------"
 
 echo "ありがとうございました"

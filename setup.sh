@@ -2,7 +2,7 @@
 
 echo "既に入っている物に関してはnを入力してください"
 echo " ------------ XCode ------------"
-echo "新入生は入ってなければy"
+echo "XCode Command Line Toolsのみインストール場合のみy"
 read -p "Command Line Toolsをインストールしますか？ (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)

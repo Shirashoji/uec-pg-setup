@@ -3,8 +3,3 @@
 
 ### setup.sh
 こちらでセットアップを行います
-
-### 多分これでいける()
-```
-/bin/bash -c "$(curl -fL https://raw.githubusercontent.com/Shirashoji/uec-setup/master/setup.sh)"
-```

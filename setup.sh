@@ -146,9 +146,7 @@ case ${Answer} in
 
 echo "ありがとうございました"
 open "https://www.uec-programming.com/"
-open "https://www.youtube.com/channel/UCqX-ZoVIj7BrhWt95GSveVQ?sub_confirmation=1"
 open "http://github.com/Shirashoji/"
-open "https://www.youtube.com/channel/UCK5aKxjqjMrGbvS7thwL0-Q?sub_confirmation=1"
 
 chsh -s /bin/zsh
 zsh

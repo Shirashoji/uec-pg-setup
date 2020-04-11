@@ -4,4 +4,6 @@
 ### setup.sh
 こちらでセットアップを行います
 
-'''curl -sf https://raw.githubusercontent.com/Shirashoji/uec-setup/master/setup.sh | sh -s'''
+"""
+curl -sf https://raw.githubusercontent.com/Shirashoji/uec-setup/master/setup.sh | sh -s
+"""

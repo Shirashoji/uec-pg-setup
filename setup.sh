@@ -1,7 +1,4 @@
-#!/bin/zsh
-
-chsh -s /bin/zsh
-zsh
+#!/bin/sh
 
 echo "既に入っている物に関してはnを入力してください"
 echo " ------------ XCode ------------"
@@ -26,6 +23,8 @@ case ${Answer_homebrew} in
     echo "Start Install Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     brew update --force && brew upgrade
+    echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
+    source ~/.zshrc
     echo "Install Homebrew is Complete!" ;;
 
   n|N)
@@ -33,16 +32,55 @@ case ${Answer_homebrew} in
 esac
 echo " ------------ END ------------"
 
-echo " ------------ Anaconda ------------"
-echo "新入生は入ってなければy，pyenvを使用したい場合は自分で入れてください．"
-read -p "Anacondaをインストールしますか？ (y/n)" Answer < /dev/tty
+echo " ------------ anyenv ------------"
+echo "pyenv(anyenvを使用します)を使う方法とpyenvを使わずにAnacondaのみをインストールする方法があります"
+read -p "anyenvをインストールしますか？ (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
-    brew cask install anaconda ;;
+    brew install anyenv
+    echo '#anyenvを動かすために必要'\\n'export PATH="$HOME/.anyenv/bin:$PATH"'\\n'eval "$(anyenv init -)"' >> ~/.zshrc
+    source ~/.zshrc
+    anyenv install --init
+    echo " ------------ anyenv installed ------------"
+    echo " ------------ pyenv ------------"
+    echo "Anyenvを使用する場合pyenvを使用することを推奨します"
+    read -p "pyenvをインストールしますか？ (y/n)" Answer_pyenv < /dev/tty
+    case ${Answer_pyenv} in
+      y|Y)
+        anyenv install pyenv
+        source ~/.zshrc
+        echo " ------------ Anaconda ------------"
+        echo "Anacondaを使用することを推奨します"
+        read -p "Anacondaをインストールしますか？ (y/n)" Answer_pyenv_anaconda < /dev/tty
+        case ${Answer_pyenv_anaconda} in
+          y|Y)
+            pyenv install $(pyenv install -l | grep 'anaconda3-' | grep -e '\s3*' | tail -1)
+            source ~/.zshrc ;;
+          n|N)
+            echo "Anacondaのインストールをキャンセルしました"
+            echo " ------------ Python3 最新安定版 ------------"
+            echo "中級•上級者はデフォルトのPython3を使用することを推奨します"
+            read -p "Python3をインストールしますか？ (y/n)" Answer_pyenv_new < /dev/tty
+            case ${Answer_pyenv_new} in
+              y|Y)
+                pyenv install $(pyenv install -l | grep -v '[a-zA-Z]' | grep -e '\s3\.?*' | tail -1)
+                source ~/.zshrc ;;
+              n|N)
+                echo "最新安定版のインストールをキャンセルしました" ;;
+            esac ;;
+        esac ;;
+    esac ;;
   n|N)
-      echo "インストールをスキップしました" ;;
-  esac
+    echo "anyenvのインストールをスキップしました．"\\n"続いてAnacodaのインストールに進みます"
+    read -p "Anacondaのみをインストールしますか？ (y/n)" Answer_anaconda < /dev/tty
+    case ${Answer_anaconda} in
+      y|Y)
+        brew cask install anaconda
+        echo "anacondaのインストールをスキップしました" ;;
+    esac ;;
+esac
 echo " ------------ END ------------"
+
 
 echo " ------------ Slack ------------"
 read -p "Slackをインストールしますか？ (y/n)" Answer < /dev/tty
@@ -91,19 +129,13 @@ esac
 echo " ------------ END ------------"
 
 
-echo " ------------ 質問コーナー! ------------"
 
-
-case ${Answer_homebrew} in
-  y|Y)
-    echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
-    source ~/.zshrc ;;
-esac
-read -p "zshで補完を行いたい？(新入生はあった方がいいと思います) (y/n)" Answer < /dev/tty
+read -p "Shell補完を行いたいですか？(新入生はあった方がいいと思います) (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
     #zshの補完
     brew install zsh-completions
+    echo '#zshの補完に使用' >> ~/.zshrc
     echo 'fpath=(/path/to/homebrew/share/zsh-completions $fpath)' >> ~/.zshrc
     echo 'autoload -U compinit' >> ~/.zshrc
     echo 'compinit -u' >> ~/.zshrc
@@ -111,8 +143,9 @@ case ${Answer} in
   n|N)
     echo "スキップしました．" ;;
   esac
-echo "以上質問コーナーでした"
-echo " ------------ END ------------"
 
 echo "ありがとうございました"
 open "https://www.uec-programming.com/"
+
+chsh -s /bin/zsh
+zsh

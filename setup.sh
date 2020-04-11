@@ -116,3 +116,4 @@ echo "以上質問コーナーでした"
 echo " ------------ END ------------"
 
 echo "ありがとうございました"
+open "https://www.uec-programming.com/"

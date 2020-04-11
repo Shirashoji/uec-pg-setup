@@ -1,4 +1,7 @@
-#!/bin/sh
+#!/bin/zsh
+
+chsh -s /bin/zsh
+zsh
 
 echo "既に入っている物に関してはnを入力してください"
 echo " ------------ XCode ------------"
@@ -91,27 +94,24 @@ echo " ------------ END ------------"
 
 echo " ------------ 質問コーナー! ------------"
 
-read -p "zsh使ってる？ (新入生は多分zshなのでyを入力してください) (y/n)" q_zsh < /dev/tty
-case ${q_zsh} in
+
+case ${Answer_homebrew} in
   y|Y)
-    case ${Answer_homebrew} in
-      y|Y)
-        echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
-        source ~/.zshrc
-    esac
-    read -p "zshで補完を行いたい？(新入生はあった方がいいと思います) (y/n)" Answer < /dev/tty
-    case ${Answer} in
-      y|Y)
-        #zshの補完
-        brew install zsh-completions
-        echo 'fpath=(/path/to/homebrew/share/zsh-completions $fpath)' >> ~/.zshrc
-        echo 'autoload -U compinit' >> ~/.zshrc
-        echo 'compinit -u' >> ~/.zshrc
-        source ~/.zshrc ;;
-      n|N)
-        echo "" ;;
-    esac
+    echo '#Launchpadに表示されないので表示されるように設定'\\n'export HOMEBREW_CASK_OPTS="--appdir=/Applications"' >> ~/.zshrc
+    source ~/.zshrc ;;
 esac
+read -p "zshで補完を行いたい？(新入生はあった方がいいと思います) (y/n)" Answer < /dev/tty
+case ${Answer} in
+  y|Y)
+    #zshの補完
+    brew install zsh-completions
+    echo 'fpath=(/path/to/homebrew/share/zsh-completions $fpath)' >> ~/.zshrc
+    echo 'autoload -U compinit' >> ~/.zshrc
+    echo 'compinit -u' >> ~/.zshrc
+    source ~/.zshrc ;;
+  n|N)
+    echo "スキップしました．" ;;
+  esac
 echo "以上質問コーナーでした"
 echo " ------------ END ------------"
 

@@ -12,7 +12,6 @@ case ${Answer} in
     echo "Start Install Command Line Tools..."
     xcode-select --install
     echo "Install Command Line Tools is Complete!" ;;
-
   n|N)
     echo "インストールをスキップしました" ;;
 esac

@@ -103,13 +103,10 @@ esac
 echo " ------------ END ------------"
 
 echo " ------------ Atom ------------"
-read -p "Atomをインストールしますか？ (y/n)" Answer < /dev/tty
+read -p "Visual Studio Codeをインストールしますか？ (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
-    brew cask install atom
-    apm install terminal-plus
-    apm install atom-runner
-    apm install color-picker ;;
+    brew cask install visual-studio-code ;;
   n|N)
     echo "インストールをスキップしました" ;;
 esac

@@ -102,7 +102,7 @@ case ${Answer} in
 esac
 echo " ------------ END ------------"
 
-echo " ------------ Atom ------------"
+echo " ------------ VSCode ------------"
 read -p "Visual Studio Codeをインストールしますか？ (y/n)" Answer < /dev/tty
 case ${Answer} in
   y|Y)
